@@ -25,12 +25,11 @@ The Histogram of gray scale image and color image is shown.
 
 
 
-```
 ##  Developed By: SARISH VARSHAN V
 ##  Register Number: 212223230196
-```
-## Program:
 
+## Program:
+```
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
