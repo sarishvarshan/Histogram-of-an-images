@@ -6,7 +6,6 @@ To obtain a histogram for finding the frequency of pixels in an Image with pixel
 Anaconda - Python 3.7
 
 ## Algorithm:
-
 ### Step1:
 Read the gray and color image using imread()
 
@@ -26,84 +25,79 @@ The Histogram of gray scale image and color image is shown.
 
 
 ## Program:
-python
-# Developed By: Srivatsan G
-# Register Number: 212223230216
-
-## program:
 ```
+# Developed By: JANARTHANAN B
+# Register Number: 212223100014
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-gray_image = cv2.imread('th.jpg', cv2.IMREAD_GRAYSCALE)
-```
 
-```plt.title("Grayscale Image")
-plt.imshow(gray_image, cmap='gray')
+# Read image safely
+grayscale_image = cv2.imread("Eagle_in_Flight.jpg", cv2.IMREAD_GRAYSCALE)
+color_img = cv2.imread("Eagle_in_Flight.jpg")
+
+# Check if images are loaded
+if grayscale_image is None or color_img is None:
+    print("Error: Image could not be loaded.")
+    exit()
+
+# Calculate histograms
+gray_hist = cv2.calcHist([grayscale_image], [0], None, [256], [0, 256])
+hist_b = cv2.calcHist([color_img], [0], None, [256], [0, 256])
+hist_g = cv2.calcHist([color_img], [1], None, [256], [0, 256])
+hist_r = cv2.calcHist([color_img], [2], None, [256], [0, 256])
+
+# Plot images
+plt.figure(figsize=(12, 5))
+plt.subplot(1, 2, 1)
+plt.imshow(grayscale_image, cmap='gray')
+plt.title('Grayscale Image')
 plt.axis('off')
-```
+plt.subplot(1, 2, 2)
+plt.imshow(cv2.cvtColor(color_img, cv2.COLOR_BGR2RGB))
+plt.title('Color Image')
+plt.axis('off')
+plt.show()
 
-## output:
+# Plot histograms
+plt.figure(figsize=(12, 5))
+plt.subplot(1, 2, 1)
+plt.plot(gray_hist, color='black')
+plt.title("Grayscale Histogram")
+plt.xlabel("Pixel Intensity")
+plt.ylabel("Count")
 
-![image](https://github.com/user-attachments/assets/9ade9f53-ce16-4773-9489-e067621ce4b3)
-
-```
-plt.title("Histogram of Grayscale Image")
-plt.hist(gray_image.ravel(), bins=256, color='black', alpha=0.6)
-plt.xlim(0, 255)
-plt.tight_layout()
+plt.subplot(1, 2, 2)
+plt.plot(hist_r, color='red')
+plt.plot(hist_g, color='green')
+plt.plot(hist_b, color='blue')
+plt.title("Color Histogram")
+plt.xlabel("Pixel Intensity")
+plt.ylabel("Count")
 plt.show()
 ```
+## Output:
+### Input Grayscale Image and Color Image:
 
-![image](https://github.com/user-attachments/assets/2da7af41-66b4-4bc5-bdd3-5a95a8339d7d)
 
-```
-equalized_gray_image = cv2.equalizeHist(gray_image)
-plt.title("Histogram of Equalized Grayscale Image")
-plt.hist(equalized_gray_image.ravel(), bins=256, color='black', alpha=0.6)
-plt.xlim(0, 255)
-```
+![Screenshot 2025-04-28 185220](https://github.com/user-attachments/assets/73e6544e-8469-4026-9408-a7728c689f1e)
 
-![image](https://github.com/user-attachments/assets/4e7d985c-a194-4fd5-b69a-dc83247eaee7)
 
-```
-plt.title("Enhanced Grayscale Image")
-plt.imshow(equalized_gray_image, cmap='gray')
-plt.axis('off')
-```
 
-![image](https://github.com/user-attachments/assets/8a481858-4152-4e25-8b3d-723540e0a20f)
+### Histogram of Grayscale Image and any channel of Color Image:
 
-```
-import cv2
-import numpy as np
-import matplotlib.pyplot as plt
-color_image = cv2.imread('th (1).jpg')
-plt.title("Input Color Image")
-plt.imshow(cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB))
-plt.axis('off')
-```
+![Screenshot 2025-04-28 185422](https://github.com/user-attachments/assets/3038b320-5226-4959-8ff4-8cdd1b6cc337)
 
-![image](https://github.com/user-attachments/assets/3f31030f-55d7-4d96-b441-aa81c2570479)
 
-```
-hist_b = cv2.calcHist([color_image], [0], None, [256], [0, 256])
-hist_g = cv2.calcHist([color_image], [1], None, [256], [0, 256])
-hist_r = cv2.calcHist([color_image], [2], None, [256], [0, 256])
-plt.title("Histogram of Input Color Image")
-plt.plot(hist_b, color='blue', label='Blue channel')
-plt.plot(hist_g, color='green', label='Green channel')
-plt.plot(hist_r, color='red', label='Red channel')
-plt.show()
-```
 
-![image](https://github.com/user-attachments/assets/177bdc45-9fd6-4c34-9d3c-89c47daf8955)
-```
-blue_channel_eq = cv2.equalizeHist(color_image[:, :, 0])
-green_channel_eq = cv2.equalizeHist(color_image[:, :, 1])
-red_channel_eq = cv2.equalizeHist(color_image[:, :, 2])
-equalized_color_image = cv2.merge([blue_channel_eq, green_channel_eq, red_channel_eq])
-```
+
+
+### Histogram Equalization of Grayscale Image:
+
+![Screenshot 2025-04-28 185523](https://github.com/user-attachments/assets/74a705bb-88df-44b9-937f-4ccf62958c8a)
+
+
 
 
 ## Result: 
